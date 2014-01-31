@@ -6,9 +6,10 @@
 
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet' />
+<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-osm/v0.1.0/leaflet-osm.js'></script>
 
 
 <script src="js/leaflet.geometryutil.js"></script>
@@ -17,11 +18,24 @@
 <style>
   body { margin:0; padding:0; }
   #map { position:absolute; top:0; bottom:0; width:100%; }
+  #output {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+        background: #fff;
+        z-index: 100;
+    }
 </style>
 
 
 </head>
 <body>
+<div id='output'>
+    click: <code id='click'></code><br/>
+    mousemove: <code id='mousemove'></code><br/>
+</div>
+
 <div id='map'></div>
 
 
@@ -30,121 +44,150 @@
  //When DOM loaded we attach click event to button
 $(document).ready(function() {
 
-var $data;
-
-//start ajax request
-                $.ajax({
-                    url: "data/stelvio.json",
-                    //force to handle it as text
-                    
-                    success: function(data) {
-                        console.log("loaded data");
-                        $data = $.parseJSON(data);
-                        makeTrack();
-                    }
-                });
-
-
- // Create array of lat,lon points
-
-function makeTrack(){
+	var $data;
+	
+	//start ajax request
+	                $.ajax({
+	                    url: "data/stelvio.json",
+	                                        
+	                    success: function(data) {
+	                        console.log("loaded data");
+	                        $data = $.parseJSON(data);
+	                        makeTrack();
+	                    }
+	                });
 	
 	
+	 $.ajax({
+      url: "http://www.openstreetmap.org/api/0.6/map?bbox=10.27634,46.38957,10.80162,46.63199",
+      dataType: "xml",
+      success: function (xml) {
+        var layer = new L.OSM.DataLayer(xml).addTo(map);
+        map.fitBounds(layer.getBounds());
+      }
+    });
 	
-	var $track = $data.data.trackData[0];
 	
-	var seg_length = 10;
+	 // Create array of lat,lon points
+	
+	function makeTrack(){
 		
-	var $segments = chunk($track, seg_length);
-	
-	
-	
+		
+		
+		var $track = $data.data.trackData[0];
+		
+		var seg_length = 10;
 			
-	//iterate through segments	
-	for( $i = 0; $i < $segments.length; $i++){
-	
-		var segment = $segments[$i];
+		var $segments = chunk($track, seg_length);
+		
+		
+		
+				
+		//iterate through segments	
+		for( $i = 0; $i < $segments.length; $i++){
+		
+			var segment = $segments[$i];
+							
+			var end = seg_length-1;
 						
-		var end = seg_length-1;
-					
-		
-		
-		var distance = 0;
-		
-		//calculate distance travelled
-		
-		
-		for( $k = 0; $k < seg_length-1; $k++){
-			var seg_start = L.latLng(segment[$k].lat, segment[$k].lon);
-			var seg_end = L.latLng(segment[$k+1].lat, segment[$k+1].lon);
-	
-			distance += seg_start.distanceTo(seg_end);
-		}
-		
-		var elevation = segment[end].ele - segment[0].ele;
-		 		
-		var gradient = Math.round(100* (elevation)/distance);
-		
-		//console.log("dist: "+distance+"/elevation: "+elevation+"/gradient: "+gradient);
-		
-	
-		var polyline_options;
-		
-		var hue;
-		
-		if(gradient >= 0){ //auffi!
-			hue = 55 -  (gradient*2);  
-		}
-		else{ //obi!!
 			
-			hue = 140 - (gradient*4); 
+			
+			var distance = 0;
+			
+			//calculate distance travelled
+			
+			
+			for( $k = 0; $k < seg_length-1; $k++){
+				var seg_start = L.latLng(segment[$k].lat, segment[$k].lon);
+				var seg_end = L.latLng(segment[$k+1].lat, segment[$k+1].lon);
+		
+				distance += seg_start.distanceTo(seg_end);
+			}
+			
+			var elevation = segment[end].ele - segment[0].ele;
+			 		
+			var gradient = Math.round(100* (elevation)/distance);
+			
+			console.log("dist: "+distance+"/elevation: "+elevation+"/gradient: "+gradient);
+			
+		
+			var polyline_options;
+			
+			var hue;
+			
+			if(gradient >= 0){ //auffi!
+				hue = 55 -  (gradient*2);  
+			}
+			else{ //obi!!
+				
+				hue = 140 - (gradient*4); 
+			}
+						
+			var t = tinycolor("hsv "+hue+", 100%, 100%");
+	       
+			
+			polyline_options  = { color: t.toHexString()};	
+		 		     
+		    var polyline = L.polyline(segment, polyline_options).addTo(map);
+		    			
+			
 		}
-					
-		var t = tinycolor("hsv "+hue+", 100%, 100%");
-       
-		
-		polyline_options  = { color: t.toHexString()};	
-	 		     
-	    var polyline = L.polyline(segment, polyline_options).addTo(map);
-	    			
-		
+			 
+		 map.fitBounds(polyline.getBounds());
 	}
-		 
-	 map.fitBounds(polyline.getBounds());
-}
 
-function split(a, n) {
-    var len = a.length,out = [], i = 0;
-    while (i < len) {
-        var size = Math.ceil((len - i) / n--);
-        out.push(a.slice(i, i += size));
-    }
-    return out;
-}
+	function split(a, n) {
+	    var len = a.length,out = [], i = 0;
+	    while (i < len) {
+	        var size = Math.ceil((len - i) / n--);
+	        out.push(a.slice(i, i += size));
+	    }
+	    return out;
+	}
+	
+	function chunk (array, chunkSize) {
+	       var retArr = [];
+	       for (var i = 0; i < array.length - (chunkSize - 1); i++){
+	            retArr.push(array.slice(i, i+chunkSize));
+	       }
+	       return retArr;
+	 }
+	
+	/*
+	leaflet: pointToSegmentDistance
+	
+	d: distance = pointToSegmentDistance
+	
+	c: climb = c1-c2
+	
+	g: gradient = (c/d)*100
+	
+	*/
+	var click = document.getElementById('click'),
+	    mousemove = document.getElementById('mousemove');
+	
+	//maxBounds
+	//center
 
-function chunk (array, chunkSize) {
-       var retArr = [];
-       for (var i = 0; i < array.length - (chunkSize - 1); i++){
-            retArr.push(array.slice(i, i+chunkSize));
-       }
-       return retArr;
- }
 
-/*
-leaflet: pointToSegmentDistance
 
-d: distance = pointToSegmentDistance
+	var map = L.mapbox.map('map', 'jamesbeat.h2gm1nn1').on('ready', function() {
+      map.minZoom = 15;
+      console.log('init map');
+      // map._layersMaxZoom = 22;
+    });
+	
+	//map.setView([46.51653, 10.54735], 15);    
+	map.setMaxBounds([[46.38957, 10.27634],[46.63199, 10.80162]]); 
+	map.fitBounds( [[46.38957, 10.27634],[46.63199, 10.80162]] );
+	//map.setMinZoom(map.getBoundsZoom( [[46.38957, 10.27634],[46.63199, 10.80162]], true));
+	
+	console.log(map.getBoundsZoom( [[46.38957, 10.27634],[46.63199, 10.80162]], true));
 
-c: climb = c1-c2
-
-g: gradient = (c/d)*100
-
-*/
-
-var map = L.mapbox.map('map', 'jamesbeat.h2gm1nn1').setView([46.51655, 10.54934], 12);    
-  
+	map.on('mousemove click', function(e) {
+	    window[e.type].innerHTML = e.containerPoint.toString() + ', ' + e.latlng.toString();
+	});
 });
-
 </script>
 </body>
 </html>
