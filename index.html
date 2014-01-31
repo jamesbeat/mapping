@@ -9,7 +9,7 @@
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet' />
-<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-osm/v0.1.0/leaflet-osm.js'></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-osm/v0.1.0/leaflet-osm.js'></script>
 
 
 <script src="js/leaflet.geometryutil.js"></script>
@@ -47,15 +47,15 @@ $(document).ready(function() {
 	var $data;
 	
 	//start ajax request
-	                $.ajax({
-	                    url: "data/stelvio.json",
-	                                        
-	                    success: function(data) {
-	                        console.log("loaded data");
-	                        $data = $.parseJSON(data);
-	                        makeTrack();
-	                    }
-	                });
+    $.ajax({
+        url: "data/stelvio.json",
+                            
+        success: function(data) {
+            console.log("loaded data");
+            $data = $.parseJSON(data);
+            makeTrack();
+        }
+    });
 	
 	
 	 $.ajax({
@@ -108,7 +108,7 @@ $(document).ready(function() {
 			 		
 			var gradient = Math.round(100* (elevation)/distance);
 			
-			console.log("dist: "+distance+"/elevation: "+elevation+"/gradient: "+gradient);
+			//console.log("dist: "+distance+"/elevation: "+elevation+"/gradient: "+gradient);
 			
 		
 			var polyline_options;
@@ -153,40 +153,57 @@ $(document).ready(function() {
 	       return retArr;
 	 }
 	
-	/*
-	leaflet: pointToSegmentDistance
 	
-	d: distance = pointToSegmentDistance
 	
-	c: climb = c1-c2
 	
-	g: gradient = (c/d)*100
 	
-	*/
-	var click = document.getElementById('click'),
-	    mousemove = document.getElementById('mousemove');
+	var click = document.getElementById('click');
+	var mousemove = document.getElementById('mousemove');
 	
 	//maxBounds
 	//center
 
+	var bl = [46.43502, 10.31342];
+	var tr = [46.65226, 10.6691];
 
-
-	var map = L.mapbox.map('map', 'jamesbeat.h2gm1nn1').on('ready', function() {
-      map.minZoom = 15;
-      console.log('init map');
-      // map._layersMaxZoom = 22;
-    });
+	var bounds = { 
+			'tl' : [tr[0], bl[1]],
+			'tr' : tr,
+			'br' : [bl[0],tr[1]],
+			'bl' : bl		
+	}
 	
-	//map.setView([46.51653, 10.54735], 15);    
-	map.setMaxBounds([[46.38957, 10.27634],[46.63199, 10.80162]]); 
-	map.fitBounds( [[46.38957, 10.27634],[46.63199, 10.80162]] );
+		
+
+	var map = L.mapbox.map('map', 'jamesbeat.h2gm1nn1');
+		
+	//map.setView([46.51653, 10.54735], 18);    
+	map.setMaxBounds([bounds.bl,bounds.tr]); 
+	//map.fitBounds( [bounds.bl,bounds.tr] );
+	map.setZoom(5); 
 	//map.setMinZoom(map.getBoundsZoom( [[46.38957, 10.27634],[46.63199, 10.80162]], true));
-	
-	console.log(map.getBoundsZoom( [[46.38957, 10.27634],[46.63199, 10.80162]], true));
+   
+
+
 
 	map.on('mousemove click', function(e) {
 	    window[e.type].innerHTML = e.containerPoint.toString() + ', ' + e.latlng.toString();
 	});
+	
+		
+	var line_points = [	bounds.tl,bounds.tr,bounds.br,bounds.bl,bounds.tl ];
+	
+	
+	var boundaryLine_options = {
+      color: '#dedede',      // Stroke color
+      opacity: 1,         // Stroke opacity
+      weight: 1,         // Stroke weight
+    };
+
+	
+	var boundaryLine = L.polyline(line_points, boundaryLine_options).addTo(map);
+		 
+	
 });
 </script>
 </body>
