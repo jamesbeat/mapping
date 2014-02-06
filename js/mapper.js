@@ -29,25 +29,16 @@ $(document).ready(function() {
 	
 	function makeTrack(){
 		
-		
-		
 		var $track = $data.data.trackData[0];
-		
 		var seg_length = 10;
-			
 		var $segments = chunk($track, seg_length);
-		
-		
-		
-				
+						
 		//iterate through segments	
 		for( $i = 0; $i < $segments.length; $i++){
 		
 			var segment = $segments[$i];
 							
 			var end = seg_length-1;
-						
-			
 			
 			var distance = 0;
 			
