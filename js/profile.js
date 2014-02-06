@@ -3,7 +3,7 @@ window.onload = function () {
 	var rad = Math.PI*2 / 360;
 	
 	var $data;
-	var sectors = 36;
+	var sectors = 90;
 	var ring_width = 200;
 	var size = 840;
 	var ele_steps = 500;
@@ -19,6 +19,8 @@ window.onload = function () {
 	
 	var ele_max;
 	var ele_ceil;
+	
+	var font = 'Share';
 	
 	
 	var upColors = ["#aeb09d",
@@ -51,25 +53,25 @@ window.onload = function () {
 					"#000000"];
 					
 	var downColors = ["#aeb09d",
-					"#b0b8b9",
-					"#a3b0b2",
-					"#8fa9af",
-					"#769ca5",
-					"#618b9f",
-					"#487e98",
-					"#397592",
-					"#296480",
-					"#175775",
-					"#175775",
-					"#175775",
-					"#175775",
-					"#175775",
-					"#175775",
-					"#175775",
-					"#175775",
-					"#ff00c6",
-					"#ff00c6",	
-					"#ff00c6"];				
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",
+					"#aeb09d",	
+					"#aeb09d"];				
 	
 	
 	var r = Raphael("profile", size, size),
@@ -148,8 +150,8 @@ window.onload = function () {
 			var line_R = start_R + increment * i;
 					
 			
-			var txt = r.text(size/2 - line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 10});
-			var txt = r.text(size/2 + line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 10});
+			var txt = r.text(size/2 - line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
+			var txt = r.text(size/2 + line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
 			
 			if(i == 0){}
 			else{
@@ -194,10 +196,10 @@ window.onload = function () {
 			
 			if(i == 0){}
 			else{ 
-				out.push(r.path(["M", x1, y1, "L", x2, y2]).attr({"stroke-dasharray":"--","stroke": '#000000', "stroke-opacity": 0.1, "stroke-width": 1})); 
+				out.push(r.path(["M", x1, y1, "L", x2, y2]).attr({"stroke": '#000000', "stroke-opacity": 0.1, "stroke-width": 1})); 
 				
 				
-				var text = r.text(xt, yt , i / 1000 ).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 10, 'font-family':numFont}).transform(["r", 0]);
+				var text = r.text(xt, yt , i / 1000 ).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 16, 'font-family':font}).transform(["r", 0]);
 								
 				out.push(text);
 							

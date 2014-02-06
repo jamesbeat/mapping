@@ -22,7 +22,7 @@
 <script type='text/javascript' src='js/profile.js'></script>
 </head>
 <body>
-
+<h1>Passo Dello Stelvio</h1>
 
 <div id="profile_container">
 <div id='profile'></div>
