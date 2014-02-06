@@ -1,5 +1,7 @@
 window.onload = function () {
 	
+	var rad = Math.PI*2 / 360;
+	
 	var $data;
 	var sectors = 36;
 	var ring_width = 200;
@@ -17,9 +19,6 @@ window.onload = function () {
 	
 	var ele_max;
 	var ele_ceil;
-	
-	
-	
 	
 	
 	var upColors = ["#aeb09d",
@@ -77,6 +76,8 @@ window.onload = function () {
 	        init = true,
 	        param = {stroke: "#fff", "stroke-width": 30},
 	        hash = document.location.hash;
+	
+	var numFont = r.getFont("Share");
 			
 	
 	// LOAD JSON DATA --------------------------------------------------------------------------------------------- 
@@ -116,12 +117,12 @@ window.onload = function () {
 			
 			//var km_angle = 180/
 			
-																
+			drawDistance(R,R+ring_width, length_total,dist_steps);													
 			render_profile(track);
 			drawMarks(R,R+ring_width, ele_floor, ele_ceil, ele_steps);
 				
 			
-			drawDistance(R,R+ring_width, length_total,dist_steps);
+			
 			
         }
     });
@@ -174,30 +175,38 @@ window.onload = function () {
 		var deg_per_m = 180 / dist;
 		
 		for(i = 0; i < dist ; i+= seg){
+			 
+	    
+	        var startAngle = -180;
+	                
+	        var deltaAngle = i * deg_per_m; 
+	        console.log('angle:'+deltaAngle);
+	        var x1 = Math.round(size/2 + start_R * Math.cos((startAngle + deltaAngle) * rad));
+			var y1 = Math.round(size/2 + start_R * Math.sin((startAngle + deltaAngle) * rad));
+	        
+	        var x2 = Math.round(size/2 + end_R * Math.cos((startAngle + deltaAngle) * rad));
+			var y2 = Math.round(size/2 + end_R * Math.sin((startAngle + deltaAngle) * rad));
 			
+			var xt = Math.round(size/2 + (end_R + 10) * Math.cos((startAngle + deltaAngle) * rad));
+			var yt = Math.round(size/2 + (end_R + 10) * Math.sin((startAngle + deltaAngle) * rad));
 			
-	       
-	       // var a = i * deg_per_m - 90; 
-	        
-	        var alpha = 180 / dist * i * deg_per_m;
-			var  a = (90 - alpha) * Math.PI / 180;
-	        
-	        
-	        console.log('angle:'+a);
-	        var x1 = size/2 + start_R * Math.cos(a);
-	        var y1 = size/2 - start_R * Math.sin(a);
-
-			var x2 = size/2 + end_R * Math.cos(a);
-	        var y2 = size/2 - end_R * Math.sin(a);
-
-		}
-									
-		//var deg_delta = km_ceil - length_total;
-		//var excess_deg = 180 + deg_delta * deg_per_m;
-		var params = {stroke: '#ff0000', "stroke-width": 1}
 		
-						
-		out.push(r.path(["M", x1, y1, "L", x2, y2]).attr(params));
+			
+			if(i == 0){}
+			else{ 
+				out.push(r.path(["M", x1, y1, "L", x2, y2]).attr({"stroke-dasharray":"--","stroke": '#000000', "stroke-opacity": 0.1, "stroke-width": 1})); 
+				
+				
+				var text = r.text(xt, yt , i / 1000 ).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 10, 'font-family':numFont}).transform(["r", 0]);
+								
+				out.push(text);
+							
+				
+			}
+				
+		}
+				
+		
 		
 	}
         
@@ -236,7 +245,6 @@ window.onload = function () {
 	 Raphael.fn.pieChart = function (cx, cy, r, track, stroke) {
 	        	    	    
 		   var paper = this;
-		   var rad = Math.PI*2 / 360;
 		   var chart = this.set();
 		    
 		   var angle = -180;
