@@ -1,7 +1,7 @@
 window.onload = function () {
 	
 	var $data;
-	var sectors = 18;
+	var sectors = 36;
 	var ring_width = 200;
 	var size = 840;
 	var ele_steps = 500;
@@ -83,7 +83,7 @@ window.onload = function () {
 	
 	//start ajax request
     $.ajax({
-        url: "data/stelvio.json",
+        url: "data/stelvio_mortirolo.json",
                             
         success: function(data) {
             console.log("loaded data");
@@ -150,14 +150,17 @@ window.onload = function () {
 			var txt = r.text(size/2 - line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 10});
 			var txt = r.text(size/2 + line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 10});
 			
-			for (var value = 0; value <= total; value++) {
-	            var alpha = 180 / total * value - 90,
-	                a = (90 - alpha) * Math.PI / 180,
-	                x = size/2 + line_R * Math.cos(a),
-	                y = size/2 - line_R * Math.sin(a);
-	            out.push(r.circle(x, y, 1).attr(marksAttr));
-			}
+			if(i == 0){}
+			else{
 			
+				for (var value = 0; value <= total; value++) {
+		            var alpha = 180 / total * value - 90,
+		                a = (90 - alpha) * Math.PI / 180,
+		                x = size/2 + line_R * Math.cos(a),
+		                y = size/2 - line_R * Math.sin(a);
+		            out.push(r.circle(x, y, 1).attr(marksAttr));
+				}
+			}
 			
 			
 		}
