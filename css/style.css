@@ -19,14 +19,14 @@ html, body {
   font-family: "museo-sans-rounded";
 }
 
-/* line 22, ../scss/style.scss */
+/* line 25, ../scss/style.scss */
 body {
   margin: 0;
   padding: 0;
   background-color: #fff;
 }
 
-/* line 30, ../scss/style.scss */
+/* line 33, ../scss/style.scss */
 #graphic_container {
   position: relative;
   margin: 100px auto;
@@ -34,7 +34,7 @@ body {
   height: 840px;
 }
 
-/* line 38, ../scss/style.scss */
+/* line 41, ../scss/style.scss */
 #map_container {
   width: 380px;
   height: 380px;
@@ -44,21 +44,21 @@ body {
   overflow: hidden;
 }
 
-/* line 49, ../scss/style.scss */
+/* line 52, ../scss/style.scss */
 #map {
   background-color: #fff;
   width: 380px;
   height: 380px;
 }
 
-/* line 59, ../scss/style.scss */
+/* line 62, ../scss/style.scss */
 .leaflet-control-container {
   position: absolute;
   z-index: 120;
   top: 160px;
 }
 
-/* line 65, ../scss/style.scss */
+/* line 68, ../scss/style.scss */
 #mask {
   position: absolute;
   pointer-events: none;
@@ -70,7 +70,7 @@ body {
   background: transparent url("../images/circle_mask.png") 0 0 no-repeat;
 }
 
-/* line 78, ../scss/style.scss */
+/* line 81, ../scss/style.scss */
 #output {
   position: absolute;
   top: 10px;
@@ -80,7 +80,7 @@ body {
   z-index: 100;
 }
 
-/* line 88, ../scss/style.scss */
+/* line 91, ../scss/style.scss */
 #profile_container {
   width: 840px;
   height: 840px;
@@ -90,15 +90,31 @@ body {
   z-index: 105;
 }
 
-/* line 99, ../scss/style.scss */
+/* line 102, ../scss/style.scss */
 #meta {
+  color: #334f67;
   width: 100%;
   position: absolute;
   top: 640px;
   text-align: center;
 }
-/* line 106, ../scss/style.scss */
+/* line 111, ../scss/style.scss */
+#meta h1, #meta h2, #meta h3, #meta h4, #meta h5, #meta h6 {
+  margin-top: 0;
+  margin-bottom: 0.25em;
+}
+/* line 117, ../scss/style.scss */
 #meta h1 {
   text-transform: uppercase;
   font-size: 42px;
+}
+/* line 123, ../scss/style.scss */
+#meta h2 {
+  text-transform: uppercase;
+  font-size: 60px;
+}
+/* line 129, ../scss/style.scss */
+#meta h3 {
+  text-transform: uppercase;
+  font-size: 28px;
 }

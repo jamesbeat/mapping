@@ -14,7 +14,7 @@ $(document).ready(function() {
         }
     });
 	
-	
+	/*
 	 $.ajax({
       url: "http://www.openstreetmap.org/api/0.6/map?bbox=10.27634,46.38957,10.80162,46.63199",
       dataType: "xml",
@@ -23,7 +23,7 @@ $(document).ready(function() {
         map.fitBounds(layer.getBounds());
       }
     });
-	
+	*/
 	
 	 // Create array of lat,lon points
 	
@@ -81,7 +81,7 @@ $(document).ready(function() {
 			
 		}
 			 
-		 map.fitBounds(polyline.getBounds());
+		 //map.fitBounds(polyline.getBounds());
 	}
 
 	function split(a, n) {
@@ -121,9 +121,8 @@ $(document).ready(function() {
 			'bl' : bl		
 	}
 	
-		
 
-	var map = L.mapbox.map('map', 'jamesbeat.h2gm1nn1');
+	var map = L.mapbox.map('map', 'jamesbeat.h85bh9ff');
 		
 	//map.setView([46.51653, 10.54735], 18);    
 	map.setMaxBounds([bounds.bl,bounds.tr]); 
