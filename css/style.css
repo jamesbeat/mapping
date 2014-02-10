@@ -16,50 +16,61 @@
 html, body {
   width: 100%;
   height: 100%;
-  font-family: 'Share';
+  font-family: "museo-sans-rounded";
 }
 
-/* line 21, ../scss/style.scss */
+/* line 22, ../scss/style.scss */
 body {
   margin: 0;
   padding: 0;
   background-color: #fff;
 }
 
-/* line 29, ../scss/style.scss */
-#map_container {
+/* line 30, ../scss/style.scss */
+#graphic_container {
   position: relative;
   margin: 100px auto;
-  width: 640px;
-  height: 640px;
+  width: 840px;
+  height: 840px;
 }
 
-/* line 36, ../scss/style.scss */
+/* line 38, ../scss/style.scss */
+#map_container {
+  width: 380px;
+  height: 380px;
+  position: absolute;
+  top: 230px;
+  left: 230px;
+  overflow: hidden;
+}
+
+/* line 49, ../scss/style.scss */
 #map {
   background-color: #fff;
-  width: 640px;
-  height: 640px;
+  width: 380px;
+  height: 380px;
 }
 
-/* line 46, ../scss/style.scss */
+/* line 59, ../scss/style.scss */
 .leaflet-control-container {
   position: absolute;
   z-index: 120;
+  top: 160px;
 }
 
-/* line 51, ../scss/style.scss */
+/* line 65, ../scss/style.scss */
 #mask {
   position: absolute;
   pointer-events: none;
-  top: 0px;
-  left: 0px;
+  top: 230px;
+  left: 230px;
   z-index: 99;
-  width: 100%;
-  height: 100%;
+  width: 380px;
+  height: 380px;
   background: transparent url("../images/circle_mask.png") 0 0 no-repeat;
 }
 
-/* line 64, ../scss/style.scss */
+/* line 78, ../scss/style.scss */
 #output {
   position: absolute;
   top: 10px;
@@ -69,9 +80,25 @@ body {
   z-index: 100;
 }
 
-/* line 74, ../scss/style.scss */
+/* line 88, ../scss/style.scss */
 #profile_container {
   width: 840px;
   height: 840px;
-  margin: 100px auto;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 105;
+}
+
+/* line 99, ../scss/style.scss */
+#meta {
+  width: 100%;
+  position: absolute;
+  top: 640px;
+  text-align: center;
+}
+/* line 106, ../scss/style.scss */
+#meta h1 {
+  text-transform: uppercase;
+  font-size: 42px;
 }
