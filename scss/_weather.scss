@@ -1,0 +1,354 @@
+.weather_widget{
+
+	#local_time{
+		float: left;
+	
+	}
+	
+		
+	//weather
+	#local_weather{
+		
+		float: right;
+		
+	}
+	
+	.weather_temp{
+		
+	}
+		
+	.weather_icon{
+			
+		.icon{
+			@include font-size(32);	
+		}
+	}
+	
+	.digit{
+		@include font-size(32);	
+		font-weight: 400;
+	}
+	
+	.separator{
+		@include font-size(32);	
+		font-weight: 100;
+	}
+	
+	.unit{
+		@include font-size(12);	
+		
+	}
+	
+	.spacer{
+		width:20px;	
+	}
+}
+
+.weather_box{
+	
+	@include col(2);
+	@include alpha;
+	
+	color: $headingColor;
+	@include border-radius(4px);
+	padding: 10px;
+	margin-bottom: 20px;
+	background: $grey_tertiary;
+	
+	table{
+		width: 100%;
+		
+		td,th{
+			padding: 0;
+			text-align: center;
+		}
+		
+		th{
+			
+			text-transform: uppercase;
+			@include font-size(14);
+		}
+		
+		table{
+			
+			td,th{
+				
+			}
+		
+			th{
+				font-weight: 100;
+				text-transform: none;
+				padding-bottom: 4px;
+				@include font-size(12);
+			}	
+		}
+		
+	}
+	
+	
+	.weather_icon{
+		
+		padding: 10px 0 5px;
+	
+		
+	
+		.icon{
+			
+			color: $grey_secondary;
+			
+			@include font-size(72);
+			
+			@include letterpress;
+			
+		}
+	}
+	
+	.weather_desc{
+		padding: 0px 0 20px;
+		@include font-size(12);
+		
+		
+	}
+	
+	.weather_temp{
+		@include font-size(18);
+		font-weight: 200;
+		color: $grey_footer;
+	}
+	
+	.digit{
+		font-weight: 400;
+		
+	}
+	.unit{
+		@include font-size(12);
+	}
+	.separator{
+		font-weight: 100;
+	}
+	
+	&.big{
+		
+		.weather_temp{
+			@include font-size(32);	
+			font-weight: 100;
+			color: $grey_footer;
+		}
+		
+		.digit{
+			font-weight: 400;
+			@include letterpress;
+		}
+		
+		.unit{
+			@include font-size(12);	
+			font-weight: bold;
+		}
+
+	}
+	
+}
+
+
+
+//WEATHER ICONS
+//Thunderstorm 
+/*
+ID	Meaning	Icon
+200	 thunderstorm with light rain	 [[file:11d.png]]
+201	 thunderstorm with rain	 [[file:11d.png]]
+202	 thunderstorm with heavy rain	 [[file:11d.png]]
+210	 light thunderstorm	 [[file:11d.png]]
+211	 thunderstorm	 [[file:11d.png]]
+212	 heavy thunderstorm	 [[file:11d.png]]
+221	 ragged thunderstorm	 [[file:11d.png]]
+230	 thunderstorm with light drizzle	 [[file:11d.png]]
+231	 thunderstorm with drizzle	 [[file:11d.png]]
+232	 thunderstorm with heavy drizzle	 [[file:11d.png]]
+*/
+.weather_200,
+.weather_201,
+.weather_202,
+.weather_210,
+.weather_211,
+.weather_212,
+.weather_221,
+.weather_230,
+.weather_231,
+.weather_232
+{
+	@extend .icon-lightning4;
+}
+
+//Drizzle
+/*
+ID	 Meaning	Icon
+300	 light intensity drizzle	 [[file:09d.png]]
+301	 drizzle	 [[file:09d.png]]
+302	 heavy intensity drizzle	 [[file:09d.png]]
+310	 light intensity drizzle rain	 [[file:09d.png]]
+311	 drizzle rain	 [[file:09d.png]]
+312	 heavy intensity drizzle rain	 [[file:09d.png]]
+313	 shower rain and drizzle	 [[file:09d.png]]
+314	 heavy shower rain and drizzle	 [[file:09d.png]]
+321	 shower drizzle	 [[file:09d.png]]
+*/
+
+.weather_300{
+	@extend .icon-rainy4;
+}
+
+.weather_301,
+.weather_302,
+.weather_310,
+.weather_311,
+.weather_312,
+.weather_313,
+.weather_314,
+.weather_321
+{
+	@extend .icon-weather5;
+}
+
+//Rain
+/*
+ID	 Meaning	Icon
+500	 light rain	 [[file:10d.png]]
+501	 moderate rain	 [[file:10d.png]]
+502	 heavy intensity rain	 [[file:10d.png]]
+503	 very heavy rain	 [[file:10d.png]]
+504	 extreme rain	 [[file:10d.png]]
+511	 freezing rain	 [[file:13d.png]]
+520	 light intensity shower rain	 [[file:09d.png]]
+521	 shower rain	 [[file:09d.png]]
+522	 heavy intensity shower rain	 [[file:09d.png]]
+531	 ragged shower rain	 [[file:09d.png]]
+*/
+
+.weather_500{
+	@extend .icon-rainy4;
+}
+
+
+.weather_501,
+.weather_502,
+.weather_503,
+.weather_504,
+.weather_511,
+.weather_520,
+.weather_521,
+.weather_522,
+.weather_531
+{
+	@extend .icon-rainy;
+}
+
+//Snow
+/*
+ID	 Meaning	Icon
+600	 light snow	 [[file:13d.png]]
+601	 snow	 [[file:13d.png]]
+602	 heavy snow	 [[file:13d.png]]
+611	 sleet	 [[file:13d.png]]
+612	 shower sleet	 [[file:13d.png]]
+615	 light rain and snow	 [[file:13d.png]]
+616	 rain and snow	 [[file:13d.png]]
+620	 light shower snow	 [[file:13d.png]]
+621	 shower snow	 [[file:13d.png]]
+622	 heavy shower snow	 [[file:13d.png]]
+*/
+
+.weather_600
+{
+	@extend .icon-snowy3;
+}
+
+
+.weather_601,
+.weather_602,
+.weather_611,
+.weather_612,
+.weather_615,
+.weather_616,
+.weather_620,
+.weather_621,
+.weather_622
+{
+	@extend .icon-snowy5;
+}
+
+
+//Atmosphere
+/*
+ID	 Meaning	Icon
+701	 mist	 [[file:50d.png]]
+711	 smoke	 [[file:50d.png]]
+721	 haze	 [[file:50d.png]]
+731	 Sand/Dust Whirls	 [[file:50d.png]]
+741	 Fog	 [[file:50d.png]]
+751	 sand	 [[file:50d.png]]
+761	 dust	 [[file:50d.png]]
+762	 VOLCANIC ASH	 [[file:50d.png]]
+771	 SQUALLS	 [[file:50d.png]]
+781	 TORNADO	 [[file:50d.png]]
+*/
+
+.weather_701,
+.weather_711,
+.weather_721,
+.weather_7301,
+.weather_751,
+.weather_761,
+.weather_771,
+.weather_781
+{
+	@extend .icon-weather4;
+}
+
+.weather_741{
+	
+	&.pod_d{ @extend .icon-weather; }
+	&.pod_n{ @extend .icon-weather3; }
+}
+
+
+
+//Clouds
+/*
+ID	 Meaning	Icon
+800	 sky is clear	 [[file:01d.png]] [[file:01n.png]]
+801	 few clouds	 [[file:02d.png]] [[file:02n.png]]
+802	 scattered clouds	 [[file:03d.png]] [[file:03d.png]]
+803	 broken clouds	 [[file:04d.png]] [[file:03d.png]]
+804	 overcast clouds	 [[file:04d.png]] [[file:04d.png]]
+*/
+
+.weather_800{
+	
+	&.pod_d{ @extend .icon-sun; }
+	&.pod_n{ @extend .icon-moon; }
+	
+}
+
+.weather_801{
+
+	&.pod_d{ @extend .icon-cloudy2; }
+	&.pod_n{ @extend .icon-cloud3; }
+}
+
+
+.weather_802{
+	&.pod_d{ @extend .icon-cloudy2; }
+	&.pod_n{ @extend .icon-cloud3; }
+}
+
+.weather_803{
+	&.pod_d{ @extend .icon-cloudy2; }
+	&.pod_n{ @extend .icon-cloud3; }
+}
+.weather_804{
+	@extend .icon-cloud4;
+}
+
+
+
