@@ -29,7 +29,7 @@
 </head>
 <body>
 
-
+<?php include('includes/functions.php'); ?>
 
 
 
@@ -45,12 +45,18 @@
 	<div id='profile'></div>
 	
 	<div id="meta">
-		
-		
+				
 		<h1>Passo Dello Stelvio</h1>
 		<h3>Via Glurns - Bormio</h3>
 		<h2>2.757 m</h2>
 		
+	</div>
+	
+	<?php getweather(46.52887, 10.45315); ?>
+	
+	<div id="weather">
+		<div id="w_today"><?php print render_weather_single(0,1); ?></div>
+		<div id="w_forecast"><?php print render_weather_multi(1,3); ?></div>
 	</div>
 	
 </div>

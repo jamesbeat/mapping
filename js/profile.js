@@ -149,12 +149,21 @@ window.onload = function () {
 		
 			var line_R = start_R + increment * i;
 					
+						
 			
-			var txt = r.text(size/2 - line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
-			var txt = r.text(size/2 + line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
-			
-			if(i == 0){}
+						
+			if(i == 0){
+				
+				var txt = r.text(size/2 - line_R -12, size/2 + 10 , ele_floor).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
+				var txt = r.text(size/2 + line_R + 12, size/2 + 10 , ele_floor).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
+				
+			}
+	
 			else{
+			
+				var txt = r.text(size/2 - line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
+				var txt = r.text(size/2 + line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
+
 			
 				for (var value = 0; value <= total; value++) {
 		            var alpha = 180 / total * value - 90,

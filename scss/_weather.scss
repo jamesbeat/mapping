@@ -1,16 +1,20 @@
-.weather_widget{
+#weather{
+			
+	font-family: 'Share';
+	color: #aaabad;
+			
+	position: absolute;
+	right: 0px;
+	top: 450px;		
+			
+}
 
-	#local_time{
-		float: left;
-	
-	}
-	
+#w_today{
 		
 	//weather
 	#local_weather{
 		
-		float: right;
-		
+				
 	}
 	
 	.weather_temp{
@@ -20,22 +24,22 @@
 	.weather_icon{
 			
 		.icon{
-			@include font-size(32);	
+			font-size: 32px;
 		}
 	}
 	
 	.digit{
-		@include font-size(32);	
+		font-size: 32px;
 		font-weight: 400;
 	}
 	
 	.separator{
-		@include font-size(32);	
+		font-size: 32px;
 		font-weight: 100;
 	}
 	
 	.unit{
-		@include font-size(12);	
+		font-size: 12px;
 		
 	}
 	
@@ -44,16 +48,12 @@
 	}
 }
 
-.weather_box{
+#w_forecast{
 	
-	@include col(2);
-	@include alpha;
-	
-	color: $headingColor;
-	@include border-radius(4px);
+		
 	padding: 10px;
 	margin-bottom: 20px;
-	background: $grey_tertiary;
+	
 	
 	table{
 		width: 100%;
@@ -66,7 +66,7 @@
 		th{
 			
 			text-transform: uppercase;
-			@include font-size(14);
+			font-size: 14px;
 		}
 		
 		table{
@@ -79,7 +79,7 @@
 				font-weight: 100;
 				text-transform: none;
 				padding-bottom: 4px;
-				@include font-size(12);
+				font-size: 12px;
 			}	
 		}
 		
@@ -93,27 +93,23 @@
 		
 	
 		.icon{
-			
-			color: $grey_secondary;
-			
-			@include font-size(72);
-			
-			@include letterpress;
-			
+									
+			font-size: 32px;
+									
 		}
 	}
 	
 	.weather_desc{
 		padding: 0px 0 20px;
-		@include font-size(12);
+		font-size: 12px;
 		
 		
 	}
 	
 	.weather_temp{
-		@include font-size(18);
+		font-size: 18px;
 		font-weight: 200;
-		color: $grey_footer;
+		
 	}
 	
 	.digit{
@@ -121,7 +117,7 @@
 		
 	}
 	.unit{
-		@include font-size(12);
+		font-size: 12px;
 	}
 	.separator{
 		font-weight: 100;
@@ -130,18 +126,18 @@
 	&.big{
 		
 		.weather_temp{
-			@include font-size(32);	
+			font-size: 32px;	
 			font-weight: 100;
-			color: $grey_footer;
+			
 		}
 		
 		.digit{
 			font-weight: 400;
-			@include letterpress;
+			
 		}
 		
 		.unit{
-			@include font-size(12);	
+			font-size: 12px;
 			font-weight: bold;
 		}
 
