@@ -21,11 +21,13 @@
 
 <script src="js/leaflet.geometryutil.js"></script>
 
-
+<script type='text/javascript' src='js/countUp.min.js'></script>
 <script type='text/javascript' src='js/tinycolor.js'></script>
 <script type='text/javascript' src='js/raphael-min.js'></script>
 <script type='text/javascript' src='js/profile.js'></script>
-<script type='text/javascript' src='js/mapper.js'></script>
+
+
+
 </head>
 <body>
 
@@ -44,20 +46,47 @@
 <div id="profile_container">
 	<div id='profile'></div>
 	
-	<div id="meta">
+	
+	<div id="meta_left">
+		
+				
+		<div class="meta_box" id="meta_climb">
+			<div class="label">Vertical Climb</div>
+			<div class="big_digit"><span id="climb">0</span><span class="unit">m</span></div>
+		</div>
+		
+		<div class="meta_box" id="meta_distance">
+			<div class="label">Distance</div>
+			<div class="big_digit"><span id="distance">0</span><span class="unit">km</span></div>
+		</div>
+		
+			
+	</div>
+	
+		
+	
+	<div id="meta_right">
+		
+		<div class="meta_box" id="meta_weather">
+			<div class="label">Local weather (at peak)</div>
+			<div id="w_today"><?php print render_weather_single(46.52887, 10.45315); ?></div>
+		</div>
+		
+		<div class="meta_box" id="meta_forecast">
+			<div id="forecast"><?php print render_weather_multi(46.52887, 10.45315,3); ?></div>
+		</div>
+		
+				
+	</div>
+
+	<div id="meta_bottom">
 				
 		<h1>Passo Dello Stelvio</h1>
-		<h3>Via Glurns - Bormio</h3>
-		<h2>2.757 m</h2>
+		<h2>Via Glurns - Bormio</h2>
+		
 		
 	</div>
-	
-	<?php getweather(46.52887, 10.45315); ?>
-	
-	<div id="weather">
-		<div id="w_today"><?php print render_weather_single(0,1); ?></div>
-		<div id="w_forecast"><?php print render_weather_multi(1,3); ?></div>
-	</div>
+		
 	
 </div>
 

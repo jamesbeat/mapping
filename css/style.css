@@ -774,109 +774,137 @@
   content: "\e663";
 }
 
-/* line 1, ../scss/_weather.scss */
-#weather {
-  font-family: 'Share';
-  color: #aaabad;
-  position: absolute;
-  right: 0px;
-  top: 450px;
+/*
+
+#weather{
+			
+	font-family: 'Share';
+	color: #aaabad;
+	
+			
 }
 
-/* line 26, ../scss/_weather.scss */
-#w_today .weather_icon .icon {
-  font-size: 32px;
-}
-/* line 31, ../scss/_weather.scss */
-#w_today .digit {
-  font-size: 32px;
-  font-weight: 400;
-}
-/* line 36, ../scss/_weather.scss */
-#w_today .separator {
-  font-size: 32px;
-  font-weight: 100;
-}
-/* line 41, ../scss/_weather.scss */
-#w_today .unit {
-  font-size: 12px;
-}
-/* line 46, ../scss/_weather.scss */
-#w_today .spacer {
-  width: 20px;
-}
-
-/* line 51, ../scss/_weather.scss */
-#w_forecast {
-  padding: 10px;
-  margin-bottom: 20px;
-}
-/* line 58, ../scss/_weather.scss */
-#w_forecast table {
-  width: 100%;
-}
-/* line 61, ../scss/_weather.scss */
-#w_forecast table td, #w_forecast table th {
-  padding: 0;
-  text-align: center;
-}
-/* line 66, ../scss/_weather.scss */
-#w_forecast table th {
-  text-transform: uppercase;
-  font-size: 14px;
-}
-/* line 78, ../scss/_weather.scss */
-#w_forecast table table th {
-  font-weight: 100;
-  text-transform: none;
-  padding-bottom: 4px;
-  font-size: 12px;
-}
-/* line 89, ../scss/_weather.scss */
-#w_forecast .weather_icon {
-  padding: 10px 0 5px;
-}
-/* line 95, ../scss/_weather.scss */
-#w_forecast .weather_icon .icon {
-  font-size: 32px;
-}
-/* line 102, ../scss/_weather.scss */
-#w_forecast .weather_desc {
-  padding: 0px 0 20px;
-  font-size: 12px;
-}
-/* line 109, ../scss/_weather.scss */
-#w_forecast .weather_temp {
-  font-size: 18px;
-  font-weight: 200;
-}
-/* line 115, ../scss/_weather.scss */
-#w_forecast .digit {
-  font-weight: 400;
-}
-/* line 119, ../scss/_weather.scss */
-#w_forecast .unit {
-  font-size: 12px;
-}
-/* line 122, ../scss/_weather.scss */
-#w_forecast .separator {
-  font-weight: 100;
-}
-/* line 128, ../scss/_weather.scss */
-#w_forecast.big .weather_temp {
-  font-size: 32px;
-  font-weight: 100;
-}
-/* line 134, ../scss/_weather.scss */
-#w_forecast.big .digit {
-  font-weight: 400;
-}
-/* line 139, ../scss/_weather.scss */
-#w_forecast.big .unit {
-  font-size: 12px;
-  font-weight: bold;
+#w_today{
+		
+	//weather
+	#local_weather{
+		
+				
+	}
+	
+	.weather_temp{
+		
+	}
+		
+	.weather_icon{
+			
+		.icon{
+			font-size: 42px;
+			line-height: 1em;
+		}
+	}
+	
+	
 }
 
+#w_forecast{
+	
+		
+	padding: 10px;
+	margin-bottom: 20px;
+	
+	
+	table{
+		width: 100%;
+		
+		td,th{
+			padding: 0;
+			text-align: center;
+		}
+		
+		th{
+			
+			text-transform: uppercase;
+			font-size: 14px;
+		}
+		
+		table{
+			
+			td,th{
+				
+			}
+		
+			th{
+				font-weight: 100;
+				text-transform: none;
+				padding-bottom: 4px;
+				font-size: 12px;
+			}	
+		}
+		
+	}
+	
+	
+	.weather_icon{
+		
+		padding: 10px 0 5px;
+	
+		
+	
+		.icon{
+									
+			font-size: 32px;
+									
+		}
+	}
+	
+	.weather_desc{
+		padding: 0px 0 20px;
+		font-size: 12px;
+		
+		
+	}
+	
+	.weather_temp{
+		font-size: 18px;
+		font-weight: 200;
+		
+	}
+	
+	.digit{
+		font-weight: 400;
+		
+	}
+	.unit{
+		font-size: 12px;
+	}
+	.separator{
+		font-weight: 100;
+	}
+	
+	&.big{
+		
+		.weather_temp{
+			font-size: 32px;	
+			font-weight: 100;
+			
+		}
+		
+		.digit{
+			font-weight: 400;
+			
+		}
+		
+		.unit{
+			font-size: 12px;
+			font-weight: bold;
+		}
+
+	}
+	
+}
+
+*/
 /*
 ID	Meaning	Icon
 200	 thunderstorm with light rain	 [[file:11d.png]]
@@ -978,6 +1006,19 @@ body {
 }
 
 /* line 37, ../scss/style.scss */
+hr {
+  border: none;
+  border-top: 1px solid #d7e0e9;
+  height: 0px;
+  margin: 5px 0;
+}
+
+/* line 44, ../scss/style.scss */
+.right {
+  text-align: right;
+}
+
+/* line 48, ../scss/style.scss */
 #graphic_container {
   position: relative;
   margin: 100px auto;
@@ -985,7 +1026,7 @@ body {
   height: 840px;
 }
 
-/* line 45, ../scss/style.scss */
+/* line 56, ../scss/style.scss */
 #map_container {
   width: 380px;
   height: 380px;
@@ -995,21 +1036,21 @@ body {
   overflow: hidden;
 }
 
-/* line 56, ../scss/style.scss */
+/* line 67, ../scss/style.scss */
 #map {
   background-color: #fff;
   width: 380px;
   height: 380px;
 }
 
-/* line 66, ../scss/style.scss */
+/* line 77, ../scss/style.scss */
 .leaflet-control-container {
   position: absolute;
   z-index: 120;
   top: 160px;
 }
 
-/* line 72, ../scss/style.scss */
+/* line 83, ../scss/style.scss */
 #mask {
   position: absolute;
   pointer-events: none;
@@ -1021,7 +1062,7 @@ body {
   background: transparent url("../images/circle_mask.png") 0 0 no-repeat;
 }
 
-/* line 85, ../scss/style.scss */
+/* line 96, ../scss/style.scss */
 #output {
   position: absolute;
   top: 10px;
@@ -1031,7 +1072,7 @@ body {
   z-index: 100;
 }
 
-/* line 95, ../scss/style.scss */
+/* line 106, ../scss/style.scss */
 #profile_container {
   width: 840px;
   height: 840px;
@@ -1041,31 +1082,125 @@ body {
   z-index: 105;
 }
 
-/* line 106, ../scss/style.scss */
-#meta {
+/* line 118, ../scss/style.scss */
+#meta_right {
+  position: absolute;
+  right: 0px;
+  top: 450px;
+  width: 215px;
+  padding-right: 5px;
+  border-bottom: 1px solid #d7e0e9;
+}
+
+/* line 127, ../scss/style.scss */
+#meta_left {
+  position: absolute;
+  left: 0px;
+  top: 450px;
+  width: 215px;
+  padding-left: 5px;
+  border-bottom: 1px solid #d7e0e9;
+}
+
+/* line 137, ../scss/style.scss */
+#meta_bottom {
   color: #334f67;
   width: 100%;
   position: absolute;
   top: 640px;
   text-align: center;
 }
-/* line 115, ../scss/style.scss */
-#meta h1, #meta h2, #meta h3, #meta h4, #meta h5, #meta h6 {
+/* line 146, ../scss/style.scss */
+#meta_bottom h1, #meta_bottom h2, #meta_bottom h3, #meta_bottom h4, #meta_bottom h5, #meta_bottom h6 {
   margin-top: 0;
   margin-bottom: 0.25em;
 }
-/* line 121, ../scss/style.scss */
-#meta h1 {
+/* line 152, ../scss/style.scss */
+#meta_bottom h1 {
   margin-bottom: 0;
   text-transform: uppercase;
-  font-size: 42px;
+  font-size: 52px;
 }
-/* line 127, ../scss/style.scss */
-#meta h2 {
-  font-size: 60px;
-}
-/* line 132, ../scss/style.scss */
-#meta h3 {
-  text-transform: uppercase;
+/* line 158, ../scss/style.scss */
+#meta_bottom h2 {
   font-size: 28px;
+  text-transform: uppercase;
+}
+
+/* line 169, ../scss/style.scss */
+.meta_box {
+  border-top: 1px solid #d7e0e9;
+  color: #334f67;
+  padding-top: 5px;
+  margin-bottom: -7px;
+}
+/* line 176, ../scss/style.scss */
+.meta_box .label {
+  font-family: 'Share';
+}
+/* line 181, ../scss/style.scss */
+.meta_box .big_digit {
+  font-size: 52px;
+  line-height: 1em;
+}
+/* line 187, ../scss/style.scss */
+.meta_box .small_digit {
+  font-size: 18px;
+  line-height: 1em;
+}
+/* line 191, ../scss/style.scss */
+.meta_box .small_digit .unit {
+  font-size: 1em;
+}
+/* line 199, ../scss/style.scss */
+.meta_box .unit {
+  font-family: 'Share';
+  font-size: 0.5em;
+}
+/* line 206, ../scss/style.scss */
+.meta_box .digit {
+  font-size: 52px;
+  line-height: 1em;
+  font-weight: 400;
+}
+/* line 212, ../scss/style.scss */
+.meta_box .separator {
+  font-size: 32px;
+  font-weight: 100;
+}
+/* line 217, ../scss/style.scss */
+.meta_box .spacer {
+  width: 20px;
+}
+/* line 221, ../scss/style.scss */
+.meta_box table {
+  width: 100%;
+}
+/* line 223, ../scss/style.scss */
+.meta_box table th.label {
+  text-align: left;
+  font-weight: normal;
+}
+/* line 227, ../scss/style.scss */
+.meta_box table td {
+  vertical-align: top;
+}
+/* line 234, ../scss/style.scss */
+.meta_box .weather_icon .icon {
+  font-size: 42px;
+  line-height: 1em;
+}
+
+/* line 243, ../scss/style.scss */
+#forecast {
+  padding-bottom: 10px;
+}
+/* line 249, ../scss/style.scss */
+#forecast .weather_icon .icon {
+  font-size: 24px;
+  line-height: 1em;
+}
+/* line 255, ../scss/style.scss */
+#forecast hr {
+  margin: 2px 0;
 }

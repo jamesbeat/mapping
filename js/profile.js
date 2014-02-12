@@ -3,12 +3,18 @@ window.onload = function () {
 	var rad = Math.PI*2 / 360;
 	
 	var $data;
-	var sectors = 90;
+	
+	var track; 
+	
+	var sectors = 42;
 	var ring_width = 200;
 	var size = 840;
 	var ele_steps = 500;
 	
+	var linecolor = '#334f67';
+	
 	var length_total = 0;
+	var climb_total = 0;
 	
 	var dist_steps = 10000;
 	
@@ -23,55 +29,51 @@ window.onload = function () {
 	var font = 'Share';
 	
 	
-	var upColors = ["#aeb09d",
-					"#a1a676",
-					"#afb671",
-					"#d8c91f",
-					"#ffe65d",
-					"#ffc926",
-					"#ff9b3a",
-					"#ff7e01",
-					"#ff6d01",
-					"#ff5400",
-					"#d24500",
-					"#c22e00",
-					"#9e2500",
-					"#840303",
-					"#5b1500",
-					"#5b1500",
-					"#000000",
-					"#000000",
-					"#000000",	
-					"#000000",
-					"#000000",
-					"#000000",
-					"#000000",
-					"#000000",
-					"#000000",
-					"#000000",
-					"#000000",
-					"#000000"];
+	var upColors = ['#E15F4D',
+'#DB5B4C',
+'#D5584C',
+'#CF554C',
+'#C9524C',
+'#C34F4B',
+'#BE4C4B',
+'#B8494B',
+'#B2454B',
+'#AC424A',
+'#A63F4A',
+'#A13C4A',
+'#9B394A',
+'#953649',
+'#8F3349',
+'#892F49',
+'#842C49',
+'#7E2948',
+'#782648',
+'#722348',
+'#6C2048',
+'#671D48'];
 					
-	var downColors = ["#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",
-					"#aeb09d",	
-					"#aeb09d"];				
+	var downColors = ['#98D5E2',
+'#95D0DE',
+'#92CCDA',
+'#8FC8D6',
+'#8CC4D2',
+'#89C0CE',
+'#87BBCA',
+'#84B7C7',
+'#81B3C3',
+'#7EAFBF',
+'#7BABBB',
+'#79A6B7',
+'#76A2B3',
+'#739EAF',
+'#709AAC',
+'#6D96A8',
+'#6B91A4',
+'#688DA0',
+'#65899C',
+'#628598',
+'#5F8194',
+'#5D7D91'];				
 	
 	
 	var r = Raphael("profile", size, size),
@@ -86,7 +88,7 @@ window.onload = function () {
 	
 	//start ajax request
     $.ajax({
-        url: "data/stelvio_mortirolo.json",
+        url: "data/stelvio.json",
                             
         success: function(data) {
             console.log("loaded data");
@@ -95,9 +97,9 @@ window.onload = function () {
             var trackpoints = $data.data.trackData[0].length; 
             var segmentSize = Math.round(trackpoints / sectors);
                                     
-            var track = makeTrack($data.data.trackData[0], segmentSize);
-			
-			//console.log(track);
+            track = makeTrack($data.data.trackData[0], segmentSize);
+					
+			console.log(track);
 					    
 		    var min_max = getMaxMin(track);
 		    ele_min = min_max[0]; 
@@ -114,8 +116,7 @@ window.onload = function () {
 			//get km dividers
 			var km_floor_ceil = getFloorCeil(0,length_total,10000);
 			var km_ceil = km_floor_ceil[1];
-			
-			
+								
 			
 			//var km_angle = 180/
 			
@@ -123,9 +124,9 @@ window.onload = function () {
 			render_profile(track);
 			drawMarks(R,R+ring_width, ele_floor, ele_ceil, ele_steps);
 				
+			render_track(track);
 			
-			
-			
+			animate_digits();
         }
     });
 	
@@ -139,7 +140,7 @@ window.onload = function () {
 		
 		var increment = range/lines;
 		
-		var marksAttr = {fill: hash || "#000000", stroke: "none", opacity: 0.25}
+		var marksAttr = {fill: hash || linecolor, stroke: "none", opacity: 0.25}
 		
 		var total = 90;
 		var out = r.set();
@@ -154,15 +155,15 @@ window.onload = function () {
 						
 			if(i == 0){
 				
-				var txt = r.text(size/2 - line_R -12, size/2 + 10 , ele_floor).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
-				var txt = r.text(size/2 + line_R + 12, size/2 + 10 , ele_floor).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
+				var txt = r.text(size/2 - line_R -12, size/2 + 10 , ele_floor).attr({fill: linecolor, stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
+				var txt = r.text(size/2 + line_R + 12, size/2 + 10 , ele_floor).attr({fill: linecolor, stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
 				
 			}
 	
 			else{
 			
-				var txt = r.text(size/2 - line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
-				var txt = r.text(size/2 + line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
+				var txt = r.text(size/2 - line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: linecolor, stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
+				var txt = r.text(size/2 + line_R, size/2 + 10 , ele_floor + ele_steps * i).attr({fill: linecolor, stroke: "none", opacity: 0.5, "font-size": 14, 'font-family':font});
 
 			
 				for (var value = 0; value <= total; value++) {
@@ -205,10 +206,10 @@ window.onload = function () {
 			
 			if(i == 0){}
 			else{ 
-				out.push(r.path(["M", x1, y1, "L", x2, y2]).attr({"stroke": '#000000', "stroke-opacity": 0.1, "stroke-width": 1})); 
+				out.push(r.path(["M", x1, y1, "L", x2, y2]).attr({"stroke": linecolor, "stroke-opacity": 0.1, "stroke-width": 1})); 
 				
 				
-				var text = r.text(xt, yt , i / 1000 ).attr({fill: "#000000", stroke: "none", opacity: 0.5, "font-size": 16, 'font-family':font}).transform(["r", 0]);
+				var text = r.text(xt, yt , i / 1000 ).attr({fill: linecolor, stroke: "none", opacity: 0.5, "font-size": 16, 'font-family':font}).transform(["r", 0]);
 								
 				out.push(text);
 							
@@ -220,6 +221,15 @@ window.onload = function () {
 		
 		
 	}
+	
+	function animate_digits(){
+		var digit_climb = new countUp("climb", 0, (climb_total/1000), 3, 1);
+		digit_climb.start();
+		
+		var digit_distance = new countUp("distance", 0, length_total/1000, 1, 1);
+		digit_distance.start();
+	}
+		
         
    // RENDER PROFILE ---------------------------------------------------------------------------------------------    
     
@@ -307,7 +317,7 @@ window.onload = function () {
 		    function process (j) {
 	            var segment = track[j];
 	            
-	            console.log(segment);
+	            //console.log(segment);
 	            
 	            var mappedHigh = mapValue(segment.high, ele_floor, ele_ceil, 0, 200, 0);
 	            var mappedLow = mapValue(segment.low, ele_floor, ele_ceil, 0, 200, 0);
@@ -326,15 +336,64 @@ window.onload = function () {
 	            var bcolor = "#858479";
 	           
 	            var p = sector(cx, cy, r, angle, angle + angleplus, segment.points, {fill: color, stroke: stroke, "stroke-width": 0});
+	            //add id
+	            p.node.id = "sector_" + j;
 	           
 	            var txt = paper.text(cx + (r + delta + 0) * Math.cos(popangle * rad), cy + (r + delta + 0) * Math.sin(popangle * rad), segment.grad+"%").attr({fill: bcolor, stroke: "none", opacity: 0, "font-size": 16});
 	            
 	            p.mouseover(function () {
 	                p.stop().animate({transform: "s1.05 1.05 " + cx + " " + cy}, ms, "quad");
 	                txt.stop().animate({opacity: 1}, ms, "quad");
+	               
+	               	                   
+	                var highlight_seg = calc_track_segment(track[j]);
+					var polyline = L.polyline(highlight_seg.track, { color:'#ffe400', opacity: 0.5, weight: 4}).addTo(map).bringToBack();	
+	                polyline.node.id = "segment_" + j;
+	                               
+	                
+	                var center_point = Math.floor(segment.points.length / 2);
+	               	
+	               	var center_lat = segment.points[center_point].lat;
+	               	var center_lon = segment.points[center_point].lon;
+	               	               	
+	               	//console.log(segment.points);
+	               	map.setView([center_lat, center_lon]);
+	                
+	                $("#segment_"+j).css('opacity',0.2);
+	                
+	                console.log('segemnt?');
+	               	                
+	                
+	                 // highlight feature
+	                  $("#segment_"+j).setStyle({
+				          weight: 10,
+				          opacity: 0.3,
+				          fillOpacity: 0.9
+				      });
+	                               
+	                
 	            }).mouseout(function () {
 	                p.stop().animate({transform: ""}, ms, "quad");
 	                txt.stop().animate({opacity: 0}, ms);
+	                
+	                
+					 $("#segment_"+j).remove();
+	                
+	            }).mouseup(function () {
+	            	           	
+	                              
+	               	
+	               	var first_lat = segment.points[0].lat;
+	               	var first_lon = segment.points[0].lon;
+	               	
+	               	var last_lat = segment.points[segment.points.length-1].lat;
+	               	var last_lon = segment.points[segment.points.length-1].lon;
+               	                           
+	               map.fitBounds([
+						[first_lat, first_lon],
+						[last_lat, last_lon]
+					]);
+	               
 	            });
 	            
 	            angle += angleplus;
@@ -511,6 +570,9 @@ window.onload = function () {
 			
 			length_total += distance;
 			
+			if(climb > 0){ climb_total += climb; }
+			
+			
 			//console.log(length_total);
 			
 			segmentedTrack.push(segmentObject);
@@ -522,6 +584,97 @@ window.onload = function () {
 	}
 	
 	
+
+
+	//MAP 
+	
+	function render_track(track){
+		
+		console.log(track);
+		
+		for( i = 0; i < track.length; i++){
+			
+			var tracksegment = calc_track_segment(track[i]);
+			var polyline = L.polyline(tracksegment.track, { color:tracksegment.color, opacity: tracksegment.opacity, weight: tracksegment.weight}).addTo(map);		
+			polyline.id = "segment_" + i;
+		}
+		
+		
+	}
+	
+	
+	function calc_track_segment(segment){
+		
+		if(segment['grad'] >= 0){
+				mapcolor = upColors[segment.grad];
+			}
+			else{
+				mapcolor = downColors[Math.abs(segment.grad)];
+			}
+			polyline_options  = { color:mapcolor,opacity: 1, weight: 2 };	
+			
+			var chain = [];
+			
+			for( k = 0; k < segment['points'].length; k++){
+										
+				var latlon = [segment['points'][k].lat,segment['points'][k].lon];
+				chain.push(latlon);
+			}
+								
+			var tracksegment = { track: chain, color: mapcolor, opacity: 1, weight: 2};
+			
+			return tracksegment;
+	}
+	
+	
+	var click = document.getElementById('click');
+	var mousemove = document.getElementById('mousemove');
+	
+	//maxBounds
+	//center
+
+	var bl = [46.43502, 10.31342];
+	var tr = [46.65226, 10.6691];
+
+	var bounds = { 
+			'tl' : [tr[0], bl[1]],
+			'tr' : tr,
+			'br' : [bl[0],tr[1]],
+			'bl' : bl		
+	}
+	
+
+	var map = L.mapbox.map('map', 'jamesbeat.h85bh9ff');
+		
+	//map.setView([46.51653, 10.54735], 18);    
+	map.setMaxBounds([bounds.bl,bounds.tr]); 
+	//map.fitBounds( [bounds.bl,bounds.tr] );
+	map.setZoom(5); 
+	//map.setMinZoom(map.getBoundsZoom( [[46.38957, 10.27634],[46.63199, 10.80162]], true));
+   
+
+
+
+	map.on('mousemove click', function(e) {
+	    window[e.type].innerHTML = e.containerPoint.toString() + ', ' + e.latlng.toString();
+	});
+	
+		
+	var line_points = [	bounds.tl,bounds.tr,bounds.br,bounds.bl,bounds.tl ];
+	
+	
+	var boundaryLine_options = {
+      color: '#dedede',      // Stroke color
+      opacity: 1,         // Stroke opacity
+      weight: 1,         // Stroke weight
+    };
+
+	
+	var boundaryLine = L.polyline(line_points, boundaryLine_options).addTo(map);
+
+
+
+
 
 	function split(a, n) {
 	    var len = a.length,out = [], i = 0;

@@ -8,6 +8,7 @@ session_start();
 function getweather($lat,$lon){
 	//check if is no older than 30min
 	
+		
 	if (isset($_SESSION['weather_stamp'])) {
 	
 		$currentTime = time();
@@ -16,9 +17,8 @@ function getweather($lat,$lon){
 		
 		if ($_SESSION['weather_stamp'] <= $delta) {
 			
-			parseweather($lat,$lon);
 			$_SESSION['weather_stamp'] = $currentTime;
-		    
+		    parseweather($lat,$lon);
 		}
 		else {
 				   
@@ -29,6 +29,7 @@ function getweather($lat,$lon){
 	  $_SESSION['weather_stamp'] = time();
 	  parseweather($lat,$lon);
 	}
+	
 	
 }
 
@@ -46,22 +47,24 @@ function parseweather($lat,$lon){
 	$_SESSION['pod'] = $weather['list'][0]['sys']['pod'];
 	$_SESSION['min'] = k_to_c($weather['list'][0]['main']['temp_min']);
 	$_SESSION['max'] = k_to_c($weather['list'][0]['main']['temp_max']);
+	$_SESSION['weather'] = $weather;
+	
+	
 
 }
 
  
-function render_weather_single(){
+function render_weather_single($lat,$lon){
+	
+	getweather($lat,$lon);
 		
 	$string = "";
 	$string .= '<div class="weather_widget">';
 	$string .= '<table>';
 		$string .= '<tr>';
-		$string .= '<th colspan="2">Peak Weather</th><th>min</th><th></th><th>max</th></tr>';
 		$string .= '<td class="weather_icon"><span class="icon weather_'.$_SESSION['conditions'].' pod_'.$_SESSION['pod'].'"></span></td>';
-		$string .= '<td class="temperature"><span class="digit">'.$_SESSION['celsius'].'</span><span class="unit">&deg;C</span></td>';
-		$string .= '<td class="weather_temp"><span class="digit">'.$_SESSION['min'].'</span><span class="unit">&deg;C</span></td>';
-		$string .= '<td class="weather_temp"><span class="separator">/</span></td>';
-		$string .= '<td class="weather_temp"><span class="digit">'.$_SESSION['max'].'</span><span class="unit">&deg;C</span></td>';
+		$string .= '<td class="big_digit">'.$_SESSION['celsius'].'<span class="unit">&deg;C</span></td>';
+		$string .= '<td class="small_digit right">'.$_SESSION['max'].'<span class="unit">&deg;C max<hr/></span>'.$_SESSION['min'].'<span class="unit">&deg;C min</span></td>';
 						
 		$string .= '</tr>';
 	$string .= '</table>';
@@ -70,20 +73,14 @@ function render_weather_single(){
 	return $string;
 } 
  
-function render_weather_multi($offset=0, $days=4){
+function render_weather_multi($lat,$lon, $days=4){
+		
+	getweather($lat,$lon);
 	
-	$path_to_file = 'http://api.openweathermap.org/data/2.5/forecast?q=Oberammergau,de&mode=json';
-	$weather = parse_json($path_to_file); 
+	$weather = $_SESSION['weather'];
 	
-	/*
-	print  '<pre>';
-	print_r($weather);
-	print  '</pre>';
-	*/
-
 	$string = "";
-	
-	
+		
 	$string .= '<table>';
 	
 	
@@ -101,40 +98,18 @@ function render_weather_multi($offset=0, $days=4){
 			$temp_min = $weather['list'][$i]['main']['temp_min'];
 			$temp_max = $weather['list'][$i]['main']['temp_max'];
 			$pod = $weather['list'][$i]['sys']['pod'];           
-						
-				/*
-				$string .= '<tr><th colspan="2">'.date('D',$date).'</th></tr>';
-										
-				$string .= '<tr><td colspan="2" class="weather_icon"><span class="icon weather_'.$conditions.' pod_d"></span></td></tr>';
 							
-					$string .= '<tr><td><table>';
-					
-						$string .= '<tr><th>Min</th><th><th>Max</th></tr>';
-						
-						$string .= '<tr>';
-						$string .= '<td class="weather_temp"><span class="digit">'.k_to_c($temp_min).'</span><span class="unit">&deg;C</span></td>	';
-						$string .= '<td class="weather_temp"><span class="separator">/</span></td>';
-						$string .= '<td class="weather_temp"><span class="digit">'.k_to_c($temp_max).'</span><span class="unit">&deg;C</span></td></td>	';
-						$string .= '</tr>';
-	
-					
-					$string .= '</table></td></tr>';
-									
-				*/
 				
-				   $row1 .= '<th colspan="3">'.date('D',$date).'</th>';
-					$row2 .= '<td class="weather_icon" colspan="3"><span class="icon weather_'.$conditions.' pod_'.$_SESSION['pod'].'"></span></td>';
-											
-					$row3 .= '<td class="weather_temp"><span class="digit">'.k_to_c($temp_min).'</span><span class="unit">&deg;C</span></td>';
-					$row3 .= '<td class="weather_temp"><span class="separator">/</span></td>';
-					$row3 .= '<td class="weather_temp"><span class="digit">'.k_to_c($temp_max).'</span><span class="unit">&deg;C</span></td>';
-									
+				   $row1 .= '<th class="label" colspan="2">'.date('D',$date).'</th>';
+					$row2 .= '<td class="weather_icon"><span class="icon weather_'.$conditions.' pod_'.$_SESSION['pod'].'"></span></td>';
+																	
+					$row2 .= '<td class="small_digit right">'.k_to_c($temp_min).'<span class="unit">&deg;C</span><hr/>'.k_to_c($temp_max).'<span class="unit">&deg;C</span></td>';								
 						
 		}
 		
 		$string .= '<tr>'.$row1.'</tr>';
 		$string .= '<tr>'.$row2.'</tr>';
-		$string .= '<tr>'.$row3.'</tr>';
+		
 		
 		$string .= '</table>';
 				

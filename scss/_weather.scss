@@ -1,11 +1,10 @@
+/*
+
 #weather{
 			
 	font-family: 'Share';
 	color: #aaabad;
-			
-	position: absolute;
-	right: 0px;
-	top: 450px;		
+	
 			
 }
 
@@ -24,28 +23,12 @@
 	.weather_icon{
 			
 		.icon{
-			font-size: 32px;
+			font-size: 42px;
+			line-height: 1em;
 		}
 	}
 	
-	.digit{
-		font-size: 32px;
-		font-weight: 400;
-	}
 	
-	.separator{
-		font-size: 32px;
-		font-weight: 100;
-	}
-	
-	.unit{
-		font-size: 12px;
-		
-	}
-	
-	.spacer{
-		width:20px;	
-	}
 }
 
 #w_forecast{
@@ -145,7 +128,7 @@
 	
 }
 
-
+*/
 
 //WEATHER ICONS
 //Thunderstorm 

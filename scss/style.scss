@@ -34,6 +34,17 @@ body {
 	
 }
 
+hr{
+	border: none;
+	border-top: 1px solid #d7e0e9;
+	height: 0px;
+	margin: 5px 0;
+}
+
+.right{
+	text-align: right;
+}
+
 #graphic_container{
 	position:relative;
 	margin: 100px auto;
@@ -103,7 +114,27 @@ body {
 	z-index: 105;
 }
 
-#meta{
+
+#meta_right{
+	position: absolute;
+	right: 0px;
+	top: 450px;	
+	width: 215px;
+	padding-right: 5px;
+	border-bottom: 1px solid #d7e0e9;
+}
+
+#meta_left{
+	position: absolute;
+	left: 0px;
+	top: 450px;
+	width: 215px;
+	padding-left: 5px;
+	border-bottom: 1px solid #d7e0e9;
+}
+
+
+#meta_bottom{
 	
 	color: #334f67;
 	
@@ -121,16 +152,108 @@ body {
 	h1{
 		margin-bottom: 0;
 		text-transform: uppercase;
-		font-size: 42px;
+		font-size: 52px;
 	}
 	
 	h2{
-				
-		font-size: 60px;
+		font-size: 28px;	
+		text-transform: uppercase;
 	}
 	
 	h3{
-		text-transform: uppercase;
-		font-size: 28px;
+		
+		
 	}
+}
+
+.meta_box{
+	border-top: 1px solid #d7e0e9;
+	color: #334f67;
+	padding-top: 5px;
+	
+	margin-bottom: -7px;
+	
+	.label{
+		
+		font-family: 'Share';
+	}
+	
+	.big_digit{
+		font-size: 52px;
+		line-height: 1em;
+		
+	}
+	
+	.small_digit{
+		font-size: 18px;
+		line-height: 1em;
+		
+		.unit{
+			
+			font-size: 1em;
+						
+		}
+		
+	}
+	
+	.unit{
+		font-family: 'Share';
+		font-size: 0.5em;
+		
+		
+	}
+	
+	.digit{
+		font-size: 52px;
+		line-height: 1em;
+		font-weight: 400;
+	}
+	
+	.separator{
+		font-size: 32px;
+		font-weight: 100;
+	}
+			
+	.spacer{
+		width:20px;	
+	}
+	
+	table{
+		width: 100%;
+		th.label{
+			text-align: left;
+			font-weight: normal;
+		}
+		td{
+			vertical-align: top;
+		}
+	}
+	
+	.weather_icon{
+			
+		.icon{
+			font-size: 42px;
+			line-height: 1em;
+		}
+	}
+	
+	
+}
+
+#forecast{
+	
+	padding-bottom: 10px;
+	
+	.weather_icon{
+			
+		.icon{
+			font-size: 24px;
+			line-height: 1em;
+		}
+	}
+	
+	hr{
+		margin: 2px 0;
+	}
+	
 }
