@@ -29,6 +29,7 @@ window.onload = function () {
 	var font = 'Share';
 	
 	
+	
 	var upColors = ['#E15F4D',
 '#DB5B4C',
 '#D5584C',
@@ -88,7 +89,7 @@ window.onload = function () {
 	
 	//start ajax request
     $.ajax({
-        url: "data/stelvio.json",
+        url: "data/stelvio_up.json",
                             
         success: function(data) {
             console.log("loaded data");
@@ -341,15 +342,24 @@ window.onload = function () {
 	           
 	            var txt = paper.text(cx + (r + delta + 0) * Math.cos(popangle * rad), cy + (r + delta + 0) * Math.sin(popangle * rad), segment.grad+"%").attr({fill: bcolor, stroke: "none", opacity: 0, "font-size": 16});
 	            
+	            var featureLayer;
+	            var polyline;
+	            
 	            p.mouseover(function () {
 	                p.stop().animate({transform: "s1.05 1.05 " + cx + " " + cy}, ms, "quad");
 	                txt.stop().animate({opacity: 1}, ms, "quad");
 	               
-	               	                   
+	               	                  
 	                var highlight_seg = calc_track_segment(track[j]);
-					var polyline = L.polyline(highlight_seg.track, { color:'#ffe400', opacity: 0.5, weight: 4}).addTo(map).bringToBack();	
-	                polyline.node.id = "segment_" + j;
+					
+					console.log(track[j]);
+					
+					
+					polyline = L.polyline(highlight_seg.track, { color:'#849cfb', opacity: 0.75, weight: 8, lineCap: "square"}).addTo(map).bringToBack();										
 	                               
+	                //.bindPopup(track[j]['dist']+"m / "+track[j]['grad']+"%").openPopup();
+
+	                          
 	                
 	                var center_point = Math.floor(segment.points.length / 2);
 	               	
@@ -358,26 +368,18 @@ window.onload = function () {
 	               	               	
 	               	//console.log(segment.points);
 	               	map.setView([center_lat, center_lon]);
-	                
-	                $("#segment_"+j).css('opacity',0.2);
-	                
-	                console.log('segemnt?');
-	               	                
-	                
-	                 // highlight feature
-	                  $("#segment_"+j).setStyle({
-				          weight: 10,
-				          opacity: 0.3,
-				          fillOpacity: 0.9
-				      });
+	                       
+	                //console.log(highlight_seg['track']);
+	                                   
 	                               
 	                
 	            }).mouseout(function () {
 	                p.stop().animate({transform: ""}, ms, "quad");
 	                txt.stop().animate({opacity: 0}, ms);
-	                
-	                
-					 $("#segment_"+j).remove();
+	             	         
+								
+					map.removeLayer(polyline);
+					
 	                
 	            }).mouseup(function () {
 	            	           	
@@ -393,6 +395,9 @@ window.onload = function () {
 						[first_lat, first_lon],
 						[last_lat, last_lon]
 					]);
+					
+					
+					
 	               
 	            });
 	            
@@ -599,6 +604,12 @@ window.onload = function () {
 			polyline.id = "segment_" + i;
 		}
 		
+		var lastSeg = track.length-1;
+		var lastLatLon = track[lastSeg]['points'].length-1;
+		
+									
+	    var startPoint = L.circle([track[0]['points'][0].lat, track[0]['points'][0].lon], 10).addTo(map);                      
+	    var endPoint = L.circle([track[lastSeg]['points'][lastLatLon].lat, track[lastSeg]['points'][lastLatLon].lon], 10).addTo(map);           		
 		
 	}
 	
